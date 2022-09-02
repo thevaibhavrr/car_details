@@ -7,4 +7,6 @@ const client = new Client({
   database: "carSaleDB",
 });
 
-module.exports = client
+client.connect();
+
+module.exports = client; 

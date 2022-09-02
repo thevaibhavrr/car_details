@@ -1,23 +1,21 @@
 const client = require("../db-connection.js");
 const express = require("express");
-const app = express();
 
-const bodyParser = require("body-parser");
-app.use(bodyParser.json());
+const route = express.Router();
 
-client.connect();
 
-app.get("/car", (req, res) => {
+
+route.get("/get-all", (req, res) => {
   client.query(`SELECT * FROM  car_details`, (err, result) => {
     if (err) console.error(err), res.send(err);
     else {
       res.send(result.rows);
     }
   });
-  client.end;
+  
 });
 
-app.get("/car/:id", (req, res) => {
+route.get("/get-by-id/:id", (req, res) => {
   client.query(
     `SELECT * FROM car_details where id=${req.params.id}`,
     (err, result) => {
@@ -25,12 +23,20 @@ app.get("/car/:id", (req, res) => {
       else res.send(result.rows);
     }
   );
-  console.log("vaibhav");
 });
 
-app.post("/car/new", (req, res) => {
+route.get("/car-model-uniqe", (req, res) => {
+  client.query(`SELECT DISTINCT model, *  FROM  car_sales`, (err, result) => {
+    if (err) console.error(err), res.send(err);
+    else {
+      res.send(result.rows);
+    }
+  });
+});
+
+
+route.post("/new", (req, res) => {
   const car = req.body;
-  console.log(car);
   let inserquery = `INSERT INTO car_details(id,model,launch_year,fule_type,engine_cc,rating,total_seats,car_type)
                     VALUES (${car.id},'${car.model}',${car.launch_year},'${car.fule_type}',${car.engine_cc},${car.rating},${car.total_seats},'${car.car_type}')`;
 
@@ -38,10 +44,9 @@ app.post("/car/new", (req, res) => {
     if (err) console.error(err);
     else res.send("inset successful");
   });
-  client.end;
 });
 
-app.put("/car/:id", (req, res) => {
+route.put("/:id", (req, res) => {
   let car = req.body;
   let updateQuery = `update car_details                       
                        set model = '${car.model}',
@@ -59,10 +64,9 @@ app.put("/car/:id", (req, res) => {
       console.log(err.message);
     }
   });
-  client.end;
 });
 
-app.delete("/car/:id", (req, res) => {
+route.delete("/:id", (req, res) => {
   let insertQuery = `delete from car_details where id=${req.params.id}`;
 
   client.query(insertQuery, (err, result) => {
@@ -72,9 +76,7 @@ app.delete("/car/:id", (req, res) => {
       console.log(err.message);
     }
   });
-  client.end;
 });
 
-app.listen(8000, () => {
-  console.log("8000");
-});
+module.exports = route;
+
