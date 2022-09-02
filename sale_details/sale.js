@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const client = require("./sale_connection");
+const client = require("../db-connection.js");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());

@@ -1,4 +1,4 @@
-const client = require("./car_connection.js");
+const client = require("../db-connection.js");
 const express = require("express");
 const app = express();
 
