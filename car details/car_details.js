@@ -50,7 +50,7 @@ app.put("/car/:id", (req, res) => {
                         rating = '${car.rating}',
                          total_seats = '${car.total_seats}',
                        car_type = '${car.car_type}'
-                       where id = '${car.id}'`
+                       where id = '${car.id}'`;
 
   client.query(updateQuery, (err, result) => {
     if (!err) {
@@ -59,7 +59,7 @@ app.put("/car/:id", (req, res) => {
       console.log(err.message);
     }
   });
-  client.end; 
+  client.end;
 });
 
 app.delete("/car/:id", (req, res) => {
