@@ -25,7 +25,7 @@ const updateData = (model,launch_year,engine_cc,rating,total_seats,car_type) => 
                         rating = '${rating}',
                          total_seats = '${total_seats}',
                        car_type = '${car_type}'
-                       where id = '${id}'`
+                       where id = '${id}  '`
   );
 };
 
