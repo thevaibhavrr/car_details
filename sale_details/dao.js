@@ -11,7 +11,7 @@ const getById = (id)=>{
 const getdetilsbycompany = (tourist_company) => {
   return dbClient.query(
     `SELECT * FROM car_sales where tourist_company = '${tourist_company}'`
-  );
+  ); 
 };
 
 

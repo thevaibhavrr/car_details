@@ -14,22 +14,18 @@ route.get("/get-by-id/:id", async (req, res) => {
   res.send(car.rows[0]);
 });
 
-route.get("/get-uniq", async () => {
+route.get("/get-uniq", async (req,res) => {
   const uniqcar = await dao.getByUniqeModel();
   res.send(uniqcar.rows);
 });
 
 route.delete("/delete-data/:id", async (req, res) => {
-  // uncomplete
+  
   const deletedata = await dao.deleteData(req.params.id);
   res.send("data deleted successful ");
 });
 
-route.put("/update-data/:id", async (req, res) => {
-  // uncomplete
-  const update = await dao.updateData(req.params.id);
-  res.send(update.rows);
-});
+
 
 route.post("/add-new-data", async (req, res) => {
   const adddata = await dao.addNewData(req.body);
